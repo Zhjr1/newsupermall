@@ -25,7 +25,7 @@
       animDuration: {
         type: Number,
         // 延迟
-        default: 300
+        default: 200
       },
       moveRatio: {
         type: Number,
