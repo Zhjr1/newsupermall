@@ -1,5 +1,5 @@
 <template>
-      <tab-bar>
+      <tab-bar class="tab-bars">
       <!-- 如果path的值是变量则需要改为动态 :path="" -->
       <tab-bar-item path="/home" activeColor="deepPink">
         <img slot="item-icon" src="@/assets/img/tabbar/home.png" alt="">
@@ -35,6 +35,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+  /* .tab-bars {
+    z-index: 9;
+  } */
 </style>

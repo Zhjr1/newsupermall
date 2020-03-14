@@ -4,7 +4,7 @@ export function request(config) {
     //创建一个实例
         const instance = axios.create({
         baseURL:'http://123.207.32.32:8000/api/wh',
-        timeout:10000
+        timeout:20000
     })
     //2.axios的拦截器
     //发送成功与否

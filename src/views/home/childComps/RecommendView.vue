@@ -27,16 +27,16 @@ export default {
         display: flex;
         width: 100%;
         text-align: center;
-        font-size: 12px;
-        padding: 15px 0 20px;
+        padding: 5px;
         border-bottom: 10px solid #eee;
+        font-size: 12px;
     }
     .recommend-item {
         flex: 1;
     }
     .recommend-item img {
         width: 70px;
-        height: 70px;
-        margin-bottom: 10px;
+        height: 65px;
+        border-radius: 100%;
     }
 </style>
