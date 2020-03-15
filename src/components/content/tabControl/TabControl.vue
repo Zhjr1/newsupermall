@@ -12,6 +12,7 @@ export default {
     props:{
         titles:{
             type:Array,
+            // 默认值是对象或数组的时候必须是个函数
             default(){
                 return []
             }

@@ -120,11 +120,11 @@ export default {
     })
 
     this.scroll.on('scroll',(position) =>{
-      console.log(position);
+      // console.log(position);
     })
 
     this.scroll.on('pullUpLoad',()=>{
-      console.log('上拉加载更多')
+      // console.log('上拉加载更多')
     })
   }
 }
