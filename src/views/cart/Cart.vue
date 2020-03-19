@@ -1,19 +1,49 @@
 <template>
-  <div>
-    <mt-cell title="标题文字" value="购物车"></mt-cell>
+  <div class="cart">
+    <!-- 导航 -->
+    <nav-bar class="cart-navbar">
+      <div slot="center">购物车({{length}})</div>
+    </nav-bar>
+    <!-- 商品 -->
+    <cart-lists></cart-lists>
+    <!-- 底部结算 -->
+    <cart-bottom-bar></cart-bottom-bar>
   </div>
 </template>
 
 <script>
-import Vue from 'vue'
-import { Cell } from 'mint-ui';
+import NavBar from 'components/common/navbar/NavBar'
+import CartLists from './children/CartLists'
+import CartBottomBar from './children/CartBottomBar'
 
-Vue.component(Cell.name, Cell);
+import {mapGetters} from 'vuex'
+
 export default {
-
+  name:"Cart",
+  components: {
+    NavBar,
+    CartLists,
+    CartBottomBar
+  },
+  computed: {
+    // ...mapGetters(['cartLength','cartList'])
+    ...mapGetters({
+      length: 'cartLength',
+      list: 'cartList'
+    })
+  }
 }
 </script>
 
 <style scoped>
-
+.cart {
+  height: 100vh;
+  position: relative;
+}
+.cart-navbar {
+  background-color: var(--color-tint);
+  /* font-size: 14px; */
+  color: #fff;
+  font-weight: 500;
+}
 </style>

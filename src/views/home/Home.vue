@@ -34,6 +34,7 @@ import BackTop from 'components/content/backTop/BackTop'
 
 import {getHomeMultidata, getHomeGoods} from "@/network/home";
 import {debounce} from 'common/utils';
+// import {itemListenerMixin} from '@/common/mixin';
 
 export default {
   name:"Home",
@@ -51,21 +52,27 @@ export default {
       isShowBackTop: false,
       tabOffsetTop: 0,
       isTabFixed: false,
-      saveY: 0
+      saveY: 0,
+      itemImgListener: null
     }
   },
+  // mixins: [itemListenerMixin],
   computed:{
     showGoods(){
       return this.goods[this.currentType].list
     }
   },
-  //记录home位置better-scroll版本1.13.2有效
+  //记录home位置
   activated(){
     this.$refs.scroll.scrollTo(0, this.saveY, 0)
     this.$refs.scroll.refresh()
   },
   deactivated(){
+    //1保存Y值
     this.saveY = this.$refs.scroll.getScrollY()
+
+    //2取消全局事件监听
+    this.$bus.$off('itemImgLoad',this.itemImgListener)
   },
   components:{
     NavBar,
@@ -88,10 +95,12 @@ export default {
   },
   mounted(){
     //处理重新计算滚动高度以及防抖
-     const refresh = debounce(this.$refs.scroll.refresh,200)
-     this.$bus.$on('itemImgLoad',()=>{
+     const refresh = debounce(this.$refs.scroll.refresh,100)
+
+     this.itemImgListener = () => {
        refresh()
-     })
+     }
+     this.$bus.$on('itemImgLoad',this.itemImgListener)
   },
   methods:{
     // 事件监听
