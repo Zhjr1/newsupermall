@@ -15,6 +15,7 @@
         </scroll> 
         <detail-bottom-bar @addCart="addToCart"></detail-bottom-bar>
         <back-top @click.native="dtbackClick" v-show="isShowBackTop"></back-top>
+        <toast :msg="msg" :show="show"></toast>
     </div>
 </template>
 
@@ -31,6 +32,7 @@ import DetailBottomBar from './childComps/DetailBottomBar'
 import Scroll from 'components/common/scroll/Scroll'
 import GoodsList from 'components/content/goods/GoodsList'
 import BackTop from 'components/content/backTop/BackTop'
+import Toast from 'components/common/toast/Toast'
 
 import {debounce} from 'common/utils';
 // import {itemListenerMixin} from '@/common/mixin';
@@ -52,7 +54,9 @@ export default {
             themeTopYs: [],
             getThemeTopY: null,
             currentIndex: 0,
-            isShowBackTop: false
+            isShowBackTop: false,
+            msg: '',
+            show: false
         }
     },
     components:{
@@ -66,7 +70,8 @@ export default {
         DetailCommentInfo,
         GoodsList,
         DetailBottomBar,
-        BackTop
+        BackTop,
+        Toast
     },
     // mixins: [itemListenerMixin], //代码与home重复，使用混入mixins
     created(){
@@ -163,8 +168,17 @@ export default {
             product.price = this.goods.realPrice;
             product.iid = this.iid;
             
-            //2将商品添加到vuex管理
-            this.$store.dispatch('addCart',product)
+            //2将商品添加到vuex管理,返回promise好做后续处理
+            this.$store.dispatch('addCart',product).then(res => {
+                this.msg = res;
+                this.show = true;
+
+                setTimeout(() => {
+                    this.show = false
+                    this.msg = ''
+                },1500) 
+            })
+            // this.addCart(product).then(res=> {}) 想引入getters一样引入actions
         }
     }
 }
